@@ -59,10 +59,8 @@
     .msg.ok{color:#4ade80}.msg.err{color:#ff6b6b}.msg.wait{color:#8fd3ff}
     .link{color:#8fd3ff;cursor:pointer;font-size:13px;margin-top:16px;display:inline-block;text-decoration:underline;opacity:.7;transition:.2s}
     .link:hover{opacity:1}
-
     .menu-header{font-family:'Orbitron',sans-serif;font-size:16px;margin-bottom:4px;color:#8fd3ff}
     .menu-nick{font-size:26px;font-weight:800;margin-bottom:16px;font-family:'Orbitron',sans-serif}
-
     .stats-box{
       background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
       border-radius:16px;padding:16px;margin-bottom:24px;text-align:left;
@@ -74,7 +72,6 @@
     .stat-row:last-child{border:none}
     .stat-label{color:rgba(255,255,255,.5)}
     .stat-value{font-weight:700;color:#8fd3ff}
-
     .menu-btn{
       width:100%;border:1px solid rgba(255,255,255,.1);cursor:pointer;
       border-radius:18px;padding:20px;color:#fff;font-size:15px;font-weight:600;
@@ -86,7 +83,6 @@
     .menu-btn-text{text-align:left}
     .menu-btn-title{font-size:15px;font-weight:700}
     .menu-btn-desc{font-size:12px;color:rgba(255,255,255,.45);margin-top:4px}
-
     .logout{color:rgba(255,255,255,.4);cursor:pointer;font-size:13px;margin-top:20px;display:inline-block;transition:.2s}
     .logout:hover{color:#ff6b6b}
     .back-btn{color:rgba(255,255,255,.5);cursor:pointer;font-size:13px;display:inline-flex;align-items:center;gap:6px;margin-bottom:20px;transition:.2s}
@@ -98,7 +94,6 @@
   <div class="stars" id="stars"></div>
   <div class="wrap">
 
-    <!-- ЭКРАН 1: Приветствие -->
     <div class="card show" id="pageWelcome">
       <div class="logo">COSMIC CLAN</div>
       <h1>Добро пожаловать на сайт <span>Cosmic</span></h1>
@@ -107,7 +102,6 @@
       <button class="btn-secondary" onclick="showPage('pageLogin')">Войти</button>
     </div>
 
-    <!-- ЭКРАН 2: Вход -->
     <div class="card hidden" id="pageLogin">
       <div class="logo">ВХОД</div>
       <h1>Войти в <span>Cosmic</span></h1>
@@ -125,7 +119,6 @@
       <div class="link" onclick="showPage('pageRegister')">Нет аккаунта? Зарегистрироваться</div>
     </div>
 
-    <!-- ЭКРАН 3: Регистрация -->
     <div class="card hidden" id="pageRegister">
       <div class="logo">РЕГИСТРАЦИЯ</div>
       <h1>Вступить в <span>Cosmic</span></h1>
@@ -143,11 +136,9 @@
       <div class="link" onclick="showPage('pageLogin')">Уже есть аккаунт? Войти</div>
     </div>
 
-    <!-- ЭКРАН 4: Главное меню -->
     <div class="card hidden" id="pageMenu">
       <div class="menu-header">Добро пожаловать</div>
       <div class="menu-nick" id="menuNick">Light</div>
-
       <div class="stats-box">
         <div class="stat-row">
           <span class="stat-label">👑 Роль</span>
@@ -162,7 +153,6 @@
           <span class="stat-value" id="menuDate">—</span>
         </div>
       </div>
-
       <div class="menu-btn" onclick="showPage('pageOtgul')">
         <div class="menu-btn-icon">🏖</div>
         <div class="menu-btn-text">
@@ -170,7 +160,6 @@
           <div class="menu-btn-desc">Подать заявку на временное отсутствие</div>
         </div>
       </div>
-
       <div class="menu-btn" onclick="alert('Скоро!')">
         <div class="menu-btn-icon">✨</div>
         <div class="menu-btn-text">
@@ -178,29 +167,23 @@
           <div class="menu-btn-desc">Новая функция появится позже</div>
         </div>
       </div>
-
       <div class="logout" onclick="doLogout()">Выйти из аккаунта</div>
     </div>
 
-    <!-- ЭКРАН 5: Отгул -->
     <div class="card hidden" id="pageOtgul">
       <div class="back-btn" onclick="showPage('pageMenu')">← Назад</div>
       <div class="logo">ОТГУЛ</div>
       <h1>Взять <span>отгул</span></h1>
       <p class="sub">Укажите срок и причину</p>
-
       <div class="field">
         <label>На сколько дней (максимум 7)</label>
         <input class="input" id="otgulDays" type="number" min="1" max="7" placeholder="Например: 3">
       </div>
-
       <div class="field">
         <label>По какой причине вы берёте отгул</label>
         <textarea class="input" id="otgulReason" placeholder="Напишите причину..."></textarea>
       </div>
-
       <div class="small-note">Отгул можно взять раз в месяц</div>
-
       <button class="btn" onclick="sendOtgul()">Отправить</button>
       <div class="msg" id="otgulMsg"></div>
     </div>
@@ -208,7 +191,6 @@
   </div>
 
   <script>
-    // ===== ЗВЁЗДЫ =====
     const starsEl = document.getElementById('stars');
     for (let i = 0; i < 180; i++) {
       const s = document.createElement('div');
@@ -223,7 +205,6 @@
       starsEl.appendChild(s);
     }
 
-    // ===== UPSTASH =====
     const API = "https://talented-caribou-69877.upstash.io";
     const TOKEN = "gQAAAAAAARD1AAIncDE2Yjk4NGJkM2ViZTI0YTkyOTM2MTM4NzY0MzY1ODM5MHAxNjk4Nzc";
 
@@ -235,105 +216,59 @@
       return data.result;
     }
 
-    // ===== НАВИГАЦИЯ =====
     function showPage(id) {
-      document.querySelectorAll('.card').forEach(c => {
-        c.classList.add('hidden');
-        c.classList.remove('show');
-      });
+      document.querySelectorAll('.card').forEach(c => { c.classList.add('hidden'); c.classList.remove('show'); });
       const page = document.getElementById(id);
       page.classList.remove('hidden');
       page.classList.add('show');
     }
 
-    // ===== РЕГИСТРАЦИЯ =====
     async function doRegister() {
       const nick = document.getElementById('regNick').value.trim();
       const pass = document.getElementById('regPass').value;
       const msg = document.getElementById('regMsg');
       const btn = document.getElementById('regBtn');
-
       if (!nick || !pass) { msg.className='msg err'; msg.textContent='❌ Заполни все поля'; return; }
       if (pass.length < 4) { msg.className='msg err'; msg.textContent='❌ Пароль минимум 4 символа'; return; }
-
       btn.disabled = true;
       msg.className = 'msg wait';
       msg.textContent = '⏳ Отправляю запрос...';
-
       const existing = await redis('GET', `user:${nick.toLowerCase()}`);
-      if (existing) {
-        msg.className = 'msg err';
-        msg.textContent = '❌ Этот ник уже зарегистрирован';
-        btn.disabled = false;
-        return;
-      }
-
+      if (existing) { msg.className='msg err'; msg.textContent='❌ Этот ник уже зарегистрирован'; btn.disabled=false; return; }
       await redis('SET', `req:${nick.toLowerCase()}`, 'pending');
       await redis('LPUSH', 'queue', nick.toLowerCase());
-
       msg.textContent = '⏳ Проверяю ник в клане Cosmic...';
-
       let tries = 0;
       const timer = setInterval(async () => {
         tries++;
         const status = await redis('GET', `req:${nick.toLowerCase()}`);
-
         if (status === 'approved') {
           clearInterval(timer);
-          await redis('SET', `user:${nick.toLowerCase()}`, JSON.stringify({
-            nick: nick,
-            pass: pass,
-            role: 'Участник',
-            date: new Date().toLocaleDateString('ru-RU')
-          }));
-          msg.className = 'msg ok';
-          msg.textContent = '✅ Регистрация успешна!';
-          btn.disabled = false;
+          await redis('SET', `user:${nick.toLowerCase()}`, JSON.stringify({ nick, pass, role:'Участник', date:new Date().toLocaleDateString('ru-RU') }));
+          msg.className='msg ok'; msg.textContent='✅ Регистрация успешна!'; btn.disabled=false;
           setTimeout(() => showPage('pageLogin'), 2000);
         } else if (status === 'rejected') {
-          clearInterval(timer);
-          msg.className = 'msg err';
-          msg.textContent = '❌ Твоего ника нет в клане Cosmic';
-          btn.disabled = false;
+          clearInterval(timer); msg.className='msg err'; msg.textContent='❌ Твоего ника нет в клане Cosmic'; btn.disabled=false;
         } else if (tries >= 24) {
-          clearInterval(timer);
-          msg.className = 'msg err';
-          msg.textContent = '❌ Время вышло, попробуй снова';
-          btn.disabled = false;
+          clearInterval(timer); msg.className='msg err'; msg.textContent='❌ Время вышло, попробуй снова'; btn.disabled=false;
         }
       }, 5000);
     }
 
-    // ===== ВХОД =====
     async function doLogin() {
       const nick = document.getElementById('loginNick').value.trim();
       const pass = document.getElementById('loginPass').value;
       const msg = document.getElementById('loginMsg');
-
       if (!nick || !pass) { msg.className='msg err'; msg.textContent='❌ Заполни все поля'; return; }
-
-      msg.className = 'msg wait';
-      msg.textContent = '⏳ Проверяю...';
-
+      msg.className='msg wait'; msg.textContent='⏳ Проверяю...';
       const raw = await redis('GET', `user:${nick.toLowerCase()}`);
-      if (!raw) {
-        msg.className = 'msg err';
-        msg.textContent = '❌ Аккаунт не найден';
-        return;
-      }
-
+      if (!raw) { msg.className='msg err'; msg.textContent='❌ Аккаунт не найден'; return; }
       const userData = JSON.parse(raw);
-      if (userData.pass !== pass) {
-        msg.className = 'msg err';
-        msg.textContent = '❌ Неверный пароль';
-        return;
-      }
-
+      if (userData.pass !== pass) { msg.className='msg err'; msg.textContent='❌ Неверный пароль'; return; }
       localStorage.setItem('cosmic_user', JSON.stringify(userData));
       openMenu(userData);
     }
 
-    // ===== МЕНЮ =====
     function openMenu(userData) {
       document.getElementById('menuNick').textContent = userData.nick;
       document.getElementById('menuRole').textContent = userData.role || 'Участник';
@@ -341,66 +276,28 @@
       showPage('pageMenu');
     }
 
-    // ===== ОТГУЛ =====
     async function sendOtgul() {
       const days = parseInt(document.getElementById('otgulDays').value || '0', 10);
       const reason = document.getElementById('otgulReason').value.trim();
       const msg = document.getElementById('otgulMsg');
-
-      if (!days || days < 1 || days > 7) {
-        msg.className = 'msg err';
-        msg.textContent = '❌ Укажи срок от 1 до 7 дней';
-        return;
-      }
-
-      if (!reason) {
-        msg.className = 'msg err';
-        msg.textContent = '❌ Укажи причину отгула';
-        return;
-      }
-
+      if (!days || days < 1 || days > 7) { msg.className='msg err'; msg.textContent='❌ Укажи срок от 1 до 7 дней'; return; }
+      if (!reason) { msg.className='msg err'; msg.textContent='❌ Укажи причину отгула'; return; }
       const user = JSON.parse(localStorage.getItem('cosmic_user'));
-      if (!user) {
-        msg.className = 'msg err';
-        msg.textContent = '❌ Сначала войди в аккаунт';
-        return;
-      }
-
-      await redis(
-        'SET',
-        `otgul:${user.nick.toLowerCase()}`,
-        JSON.stringify({
-          nick: user.nick,
-          role: user.role || 'Участник',
-          days: days,
-          reason: reason,
-          date: new Date().toLocaleDateString('ru-RU')
-        })
-      );
-
-      msg.className = 'msg ok';
-      msg.textContent = '✅ Заявка на отгул отправлена!';
-
+      if (!user) { msg.className='msg err'; msg.textContent='❌ Сначала войди в аккаунт'; return; }
+      await redis('SET', `otgul:${user.nick.toLowerCase()}`, JSON.stringify({ nick:user.nick, role:user.role||'Участник', days, reason, date:new Date().toLocaleDateString('ru-RU') }));
+      msg.className='msg ok'; msg.textContent='✅ Заявка на отгул отправлена!';
       document.getElementById('otgulDays').value = '';
       document.getElementById('otgulReason').value = '';
     }
 
-    // ===== ВЫХОД =====
     function doLogout() {
       localStorage.removeItem('cosmic_user');
       showPage('pageWelcome');
     }
 
-    // ===== АВТОВХОД =====
     window.addEventListener('load', () => {
       const saved = localStorage.getItem('cosmic_user');
-      if (saved) {
-        try {
-          openMenu(JSON.parse(saved));
-        } catch(e) {
-          localStorage.removeItem('cosmic_user');
-        }
-      }
+      if (saved) { try { openMenu(JSON.parse(saved)); } catch(e) { localStorage.removeItem('cosmic_user'); } }
     });
   </script>
 </body>
