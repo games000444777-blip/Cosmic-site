@@ -59,9 +59,22 @@
     .msg.ok{color:#4ade80}.msg.err{color:#ff6b6b}.msg.wait{color:#8fd3ff}
     .link{color:#8fd3ff;cursor:pointer;font-size:13px;margin-top:16px;display:inline-block;text-decoration:underline;opacity:.7;transition:.2s}
     .link:hover{opacity:1}
+
     .menu-header{font-family:'Orbitron',sans-serif;font-size:16px;margin-bottom:4px;color:#8fd3ff}
-    .menu-nick{font-size:26px;font-weight:800;margin-bottom:6px;font-family:'Orbitron',sans-serif}
-    .menu-role{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:24px}
+    .menu-nick{font-size:26px;font-weight:800;margin-bottom:16px;font-family:'Orbitron',sans-serif}
+
+    .stats-box{
+      background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;padding:16px;margin-bottom:24px;text-align:left;
+    }
+    .stat-row{
+      display:flex;justify-content:space-between;padding:8px 0;
+      border-bottom:1px solid rgba(255,255,255,.06);font-size:14px;
+    }
+    .stat-row:last-child{border:none}
+    .stat-label{color:rgba(255,255,255,.5)}
+    .stat-value{font-weight:700;color:#8fd3ff}
+
     .menu-btn{
       width:100%;border:1px solid rgba(255,255,255,.1);cursor:pointer;
       border-radius:18px;padding:20px;color:#fff;font-size:15px;font-weight:600;
@@ -73,6 +86,7 @@
     .menu-btn-text{text-align:left}
     .menu-btn-title{font-size:15px;font-weight:700}
     .menu-btn-desc{font-size:12px;color:rgba(255,255,255,.45);margin-top:4px}
+
     .logout{color:rgba(255,255,255,.4);cursor:pointer;font-size:13px;margin-top:20px;display:inline-block;transition:.2s}
     .logout:hover{color:#ff6b6b}
     .back-btn{color:rgba(255,255,255,.5);cursor:pointer;font-size:13px;display:inline-flex;align-items:center;gap:6px;margin-bottom:20px;transition:.2s}
@@ -133,7 +147,21 @@
     <div class="card hidden" id="pageMenu">
       <div class="menu-header">Добро пожаловать</div>
       <div class="menu-nick" id="menuNick">Light</div>
-      <div class="menu-role" id="menuRole">Участник</div>
+
+      <div class="stats-box">
+        <div class="stat-row">
+          <span class="stat-label">👑 Роль</span>
+          <span class="stat-value" id="menuRole">Участник</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">🏆 Клан</span>
+          <span class="stat-value">Cosmic</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">📅 Регистрация</span>
+          <span class="stat-value" id="menuDate">—</span>
+        </div>
+      </div>
 
       <div class="menu-btn" onclick="showPage('pageOtgul')">
         <div class="menu-btn-icon">🏖</div>
@@ -171,7 +199,7 @@
         <textarea class="input" id="otgulReason" placeholder="Напишите причину..."></textarea>
       </div>
 
-      <div class="small-note">Отгул можно взять на месяц</div>
+      <div class="small-note">Отгул можно взять раз в месяц</div>
 
       <button class="btn" onclick="sendOtgul()">Отправить</button>
       <div class="msg" id="otgulMsg"></div>
@@ -309,6 +337,7 @@
     function openMenu(userData) {
       document.getElementById('menuNick').textContent = userData.nick;
       document.getElementById('menuRole').textContent = userData.role || 'Участник';
+      document.getElementById('menuDate').textContent = userData.date || '—';
       showPage('pageMenu');
     }
 
