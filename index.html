@@ -54,44 +54,30 @@
       color:#fff;outline:none;font-size:15px;font-family:'Inter',sans-serif;
     }
     .input:focus{border-color:rgba(127,216,255,.5);box-shadow:0 0 18px rgba(127,216,255,.12)}
-    textarea.input{resize:none;min-height:80px}
+    textarea.input{resize:none;min-height:90px}
     .msg{margin-top:16px;min-height:22px;font-size:14px;font-weight:600}
     .msg.ok{color:#4ade80}.msg.err{color:#ff6b6b}.msg.wait{color:#8fd3ff}
     .link{color:#8fd3ff;cursor:pointer;font-size:13px;margin-top:16px;display:inline-block;text-decoration:underline;opacity:.7;transition:.2s}
     .link:hover{opacity:1}
-
     .menu-header{font-family:'Orbitron',sans-serif;font-size:16px;margin-bottom:4px;color:#8fd3ff}
     .menu-nick{font-size:26px;font-weight:800;margin-bottom:6px;font-family:'Orbitron',sans-serif}
     .menu-role{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:24px}
-
     .menu-btn{
       width:100%;border:1px solid rgba(255,255,255,.1);cursor:pointer;
-      border-radius:18px;padding:20px;color:#fff;
-      font-size:15px;font-weight:600;background:rgba(255,255,255,.04);
-      transition:.3s;margin-top:12px;display:flex;align-items:center;gap:14px;
+      border-radius:18px;padding:20px;color:#fff;font-size:15px;font-weight:600;
+      background:rgba(255,255,255,.04);transition:.3s;margin-top:12px;
+      display:flex;align-items:center;gap:14px;
     }
     .menu-btn:hover{background:rgba(127,216,255,.08);border-color:rgba(127,216,255,.3);transform:translateY(-2px)}
     .menu-btn-icon{font-size:26px}
     .menu-btn-text{text-align:left}
     .menu-btn-title{font-size:15px;font-weight:700}
     .menu-btn-desc{font-size:12px;color:rgba(255,255,255,.45);margin-top:4px}
-
     .logout{color:rgba(255,255,255,.4);cursor:pointer;font-size:13px;margin-top:20px;display:inline-block;transition:.2s}
     .logout:hover{color:#ff6b6b}
-
-    .back-btn{
-      color:rgba(255,255,255,.5);cursor:pointer;font-size:13px;
-      display:inline-flex;align-items:center;gap:6px;margin-bottom:20px;transition:.2s;
-    }
+    .back-btn{color:rgba(255,255,255,.5);cursor:pointer;font-size:13px;display:inline-flex;align-items:center;gap:6px;margin-bottom:20px;transition:.2s}
     .back-btn:hover{color:#8fd3ff}
-
-    .small-note{font-size:11px;color:rgba(255,255,255,.35);margin-top:8px}
-
-    select.input{
-      appearance:none;-webkit-appearance:none;
-      background:rgba(255,255,255,.06) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 15px center;
-    }
-    select.input option{background:#1a1a2e;color:#fff}
+    .small-note{font-size:11px;color:rgba(255,255,255,.35);margin-top:8px;margin-bottom:10px}
   </style>
 </head>
 <body>
@@ -153,12 +139,12 @@
         <div class="menu-btn-icon">🏖</div>
         <div class="menu-btn-text">
           <div class="menu-btn-title">Взять отгул</div>
-          <div class="menu-btn-desc">Отдохни от игры на несколько дней</div>
+          <div class="menu-btn-desc">Подать заявку на временное отсутствие</div>
         </div>
       </div>
 
       <div class="menu-btn" onclick="alert('Скоро!')">
-        <div class="menu-btn-icon">🔮</div>
+        <div class="menu-btn-icon">✨</div>
         <div class="menu-btn-text">
           <div class="menu-btn-title">Скоро</div>
           <div class="menu-btn-desc">Новая функция появится позже</div>
@@ -173,19 +159,11 @@
       <div class="back-btn" onclick="showPage('pageMenu')">← Назад</div>
       <div class="logo">ОТГУЛ</div>
       <h1>Взять <span>отгул</span></h1>
-      <p class="sub">Укажите срок и причину отгула</p>
+      <p class="sub">Укажите срок и причину</p>
 
       <div class="field">
         <label>На сколько дней (максимум 7)</label>
-        <select class="input" id="otgulDays">
-          <option value="1">1 день</option>
-          <option value="2">2 дня</option>
-          <option value="3">3 дня</option>
-          <option value="4">4 дня</option>
-          <option value="5">5 дней</option>
-          <option value="6">6 дней</option>
-          <option value="7">7 дней</option>
-        </select>
+        <input class="input" id="otgulDays" type="number" min="1" max="7" placeholder="Например: 3">
       </div>
 
       <div class="field">
@@ -193,7 +171,7 @@
         <textarea class="input" id="otgulReason" placeholder="Напишите причину..."></textarea>
       </div>
 
-      <p class="small-note">Отгул можно взять максимум на 1 месяц</p>
+      <div class="small-note">Отгул можно взять на месяц</div>
 
       <button class="btn" onclick="sendOtgul()">Отправить</button>
       <div class="msg" id="otgulMsg"></div>
@@ -336,29 +314,45 @@
 
     // ===== ОТГУЛ =====
     async function sendOtgul() {
-      const days = document.getElementById('otgulDays').value;
+      const days = parseInt(document.getElementById('otgulDays').value || '0', 10);
       const reason = document.getElementById('otgulReason').value.trim();
       const msg = document.getElementById('otgulMsg');
 
+      if (!days || days < 1 || days > 7) {
+        msg.className = 'msg err';
+        msg.textContent = '❌ Укажи срок от 1 до 7 дней';
+        return;
+      }
+
       if (!reason) {
         msg.className = 'msg err';
-        msg.textContent = '❌ Укажите причину';
+        msg.textContent = '❌ Укажи причину отгула';
         return;
       }
 
       const user = JSON.parse(localStorage.getItem('cosmic_user'));
-      const otgul = {
-        nick: user.nick,
-        days: days,
-        reason: reason,
-        date: new Date().toLocaleDateString('ru-RU')
-      };
+      if (!user) {
+        msg.className = 'msg err';
+        msg.textContent = '❌ Сначала войди в аккаунт';
+        return;
+      }
 
-      await redis('SET', `otgul:${user.nick.toLowerCase()}`, JSON.stringify(otgul));
+      await redis(
+        'SET',
+        `otgul:${user.nick.toLowerCase()}`,
+        JSON.stringify({
+          nick: user.nick,
+          role: user.role || 'Участник',
+          days: days,
+          reason: reason,
+          date: new Date().toLocaleDateString('ru-RU')
+        })
+      );
 
       msg.className = 'msg ok';
-      msg.textContent = `✅ Отгул на ${days} дн. оформлен!`;
+      msg.textContent = '✅ Заявка на отгул отправлена!';
 
+      document.getElementById('otgulDays').value = '';
       document.getElementById('otgulReason').value = '';
     }
 
