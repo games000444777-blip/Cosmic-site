@@ -65,7 +65,10 @@
       background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
       border-radius:16px;padding:16px;margin-bottom:24px;text-align:left;
     }
-    .stat-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:14px}
+    .stat-row{
+      display:flex;justify-content:space-between;padding:8px 0;
+      border-bottom:1px solid rgba(255,255,255,.06);font-size:14px;
+    }
     .stat-row:last-child{border:none}
     .stat-label{color:rgba(255,255,255,.5)}
     .stat-value{font-weight:700;color:#8fd3ff}
@@ -103,8 +106,14 @@
       <div class="logo">ВХОД</div>
       <h1>Войти в <span>Cosmic</span></h1>
       <p class="sub">Введите данные вашего аккаунта</p>
-      <div class="field"><label>Ник в Mine Evo</label><input class="input" id="loginNick" type="text" placeholder="Ваш ник" autocomplete="off"></div>
-      <div class="field"><label>Пароль</label><input class="input" id="loginPass" type="password" placeholder="Ваш пароль"></div>
+      <div class="field">
+        <label>Ник в Mine Evo</label>
+        <input class="input" id="loginNick" type="text" placeholder="Ваш ник" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Пароль</label>
+        <input class="input" id="loginPass" type="password" placeholder="Ваш пароль">
+      </div>
       <button class="btn" onclick="doLogin()">Войти</button>
       <div class="msg" id="loginMsg"></div>
       <div class="link" onclick="showPage('pageRegister')">Нет аккаунта? Зарегистрироваться</div>
@@ -114,8 +123,14 @@
       <div class="logo">РЕГИСТРАЦИЯ</div>
       <h1>Вступить в <span>Cosmic</span></h1>
       <p class="sub">Введите данные аккаунта Mine Evo</p>
-      <div class="field"><label>Ник в Mine Evo</label><input class="input" id="regNick" type="text" placeholder="Например: Light" autocomplete="off"></div>
-      <div class="field"><label>Пароль</label><input class="input" id="regPass" type="password" placeholder="Минимум 4 символа"></div>
+      <div class="field">
+        <label>Ник в Mine Evo</label>
+        <input class="input" id="regNick" type="text" placeholder="Например: Light" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Пароль</label>
+        <input class="input" id="regPass" type="password" placeholder="Минимум 4 символа">
+      </div>
       <button class="btn" id="regBtn" onclick="doRegister()">Зарегистрироваться</button>
       <div class="msg" id="regMsg"></div>
       <div class="link" onclick="showPage('pageLogin')">Уже есть аккаунт? Войти</div>
@@ -124,19 +139,38 @@
     <div class="card hidden" id="pageMenu">
       <div class="menu-header">Добро пожаловать</div>
       <div class="menu-nick" id="menuNick">Light</div>
+
       <div class="stats-box">
-        <div class="stat-row"><span class="stat-label">👑 Роль</span><span class="stat-value" id="menuRole">Участник</span></div>
-        <div class="stat-row"><span class="stat-label">🏆 Клан</span><span class="stat-value">Cosmic</span></div>
-        <div class="stat-row"><span class="stat-label">📅 Регистрация</span><span class="stat-value" id="menuDate">—</span></div>
+        <div class="stat-row">
+          <span class="stat-label">👑 Роль</span>
+          <span class="stat-value" id="menuRole">Участник</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">🏆 Клан</span>
+          <span class="stat-value">Cosmic</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">📅 Регистрация</span>
+          <span class="stat-value" id="menuDate">—</span>
+        </div>
       </div>
+
       <div class="menu-btn" onclick="showPage('pageOtgul')">
         <div class="menu-btn-icon">🏖</div>
-        <div class="menu-btn-text"><div class="menu-btn-title">Взять отгул</div><div class="menu-btn-desc">Подать заявку на временное отсутствие</div></div>
+        <div class="menu-btn-text">
+          <div class="menu-btn-title">Взять отгул</div>
+          <div class="menu-btn-desc">Подать заявку на временное отсутствие</div>
+        </div>
       </div>
+
       <div class="menu-btn" onclick="alert('Скоро!')">
         <div class="menu-btn-icon">✨</div>
-        <div class="menu-btn-text"><div class="menu-btn-title">Скоро</div><div class="menu-btn-desc">Новая функция появится позже</div></div>
+        <div class="menu-btn-text">
+          <div class="menu-btn-title">Скоро</div>
+          <div class="menu-btn-desc">Новая функция появится позже</div>
+        </div>
       </div>
+
       <div class="logout" onclick="doLogout()">Выйти из аккаунта</div>
     </div>
 
@@ -145,9 +179,19 @@
       <div class="logo">ОТГУЛ</div>
       <h1>Взять <span>отгул</span></h1>
       <p class="sub">Укажите срок и причину</p>
-      <div class="field"><label>На сколько дней (максимум 7)</label><input class="input" id="otgulDays" type="number" min="1" max="7" placeholder="Например: 3"></div>
-      <div class="field"><label>По какой причине вы берёте отгул</label><textarea class="input" id="otgulReason" placeholder="Напишите причину..."></textarea></div>
+
+      <div class="field">
+        <label>На сколько дней (максимум 7)</label>
+        <input class="input" id="otgulDays" type="number" min="1" max="7" placeholder="Например: 3">
+      </div>
+
+      <div class="field">
+        <label>По какой причине вы берёте отгул</label>
+        <textarea class="input" id="otgulReason" placeholder="Напишите причину..."></textarea>
+      </div>
+
       <div class="small-note">Отгул можно взять раз в месяц</div>
+
       <button class="btn" onclick="sendOtgul()">Отправить</button>
       <div class="msg" id="otgulMsg"></div>
     </div>
@@ -155,117 +199,228 @@
   </div>
 
   <script>
-    const starsEl=document.getElementById('stars');
-    for(let i=0;i<180;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'vw';s.style.top=Math.random()*100+'vh';const size=Math.random()*2+1;s.style.width=size+'px';s.style.height=size+'px';s.style.animationDuration=(Math.random()*3+2)+'s';s.style.animationDelay=(Math.random()*5)+'s';starsEl.appendChild(s);}
-
-    const API="https://talented-caribou-69877.upstash.io";
-    const TOKEN="gQAAAAAAARD1AAIncDE2Yjk4NGJkM2ViZTI0YTkyOTM2MTM4NzY0MzY1ODM5MHAxNjk4Nzc";
-
-    async function redis(cmd,...args){
-      const res=await fetch(`${API}/${cmd}/${args.map(encodeURIComponent).join('/')}`,{headers:{Authorization:`Bearer ${TOKEN}`}});
-      const data=await res.json();return data.result;
+    const starsEl = document.getElementById('stars');
+    for (let i = 0; i < 180; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      s.style.left = Math.random() * 100 + 'vw';
+      s.style.top = Math.random() * 100 + 'vh';
+      const size = Math.random() * 2 + 1;
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      s.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      s.style.animationDelay = (Math.random() * 5) + 's';
+      starsEl.appendChild(s);
     }
 
-    function showPage(id){
-      document.querySelectorAll('.card').forEach(c=>{c.classList.add('hidden');c.classList.remove('show');});
-      document.getElementById(id).classList.remove('hidden');
-      document.getElementById(id).classList.add('show');
+    const API = "https://talented-caribou-69877.upstash.io";
+    const TOKEN = "gQAAAAAAARD1AAIncDE2Yjk4NGJkM2ViZTI0YTkyOTM2MTM4NzY0MzY1ODM5MHAxNjk4Nzc";
+
+    async function redis(cmd, ...args) {
+      const res = await fetch(`${API}/${cmd}/${args.map(encodeURIComponent).join('/')}`, {
+        headers: { Authorization: `Bearer ${TOKEN}` }
+      });
+      const data = await res.json();
+      return data.result;
     }
 
-    async function doRegister(){
-      const nick=document.getElementById('regNick').value.trim();
-      const pass=document.getElementById('regPass').value;
-      const msg=document.getElementById('regMsg');
-      const btn=document.getElementById('regBtn');
-      if(!nick||!pass){msg.className='msg err';msg.textContent='❌ Заполни все поля';return;}
-      if(pass.length<4){msg.className='msg err';msg.textContent='❌ Пароль минимум 4 символа';return;}
-      btn.disabled=true;msg.className='msg wait';msg.textContent='⏳ Отправляю запрос...';
-      const existing=await redis('GET',`user:${nick.toLowerCase()}`);
-      if(existing){msg.className='msg err';msg.textContent='❌ Этот ник уже зарегистрирован';btn.disabled=false;return;}
-      await redis('SET',`req:${nick.toLowerCase()}`,'pending');
-      await redis('LPUSH','queue',nick.toLowerCase());
-      msg.textContent='⏳ Проверяю ник в клане Cosmic...';
-      let tries=0;
-      const timer=setInterval(async()=>{
+    function showPage(id) {
+      document.querySelectorAll('.card').forEach(c => {
+        c.classList.add('hidden');
+        c.classList.remove('show');
+      });
+      const page = document.getElementById(id);
+      page.classList.remove('hidden');
+      page.classList.add('show');
+    }
+
+    async function doRegister() {
+      const nick = document.getElementById('regNick').value.trim().toLowerCase();
+      const pass = document.getElementById('regPass').value;
+      const msg = document.getElementById('regMsg');
+      const btn = document.getElementById('regBtn');
+
+      if (!nick || !pass) {
+        msg.className = 'msg err';
+        msg.textContent = '❌ Заполни все поля';
+        return;
+      }
+
+      if (pass.length < 4) {
+        msg.className = 'msg err';
+        msg.textContent = '❌ Пароль минимум 4 символа';
+        return;
+      }
+
+      btn.disabled = true;
+      msg.className = 'msg wait';
+      msg.textContent = '⏳ Отправляю запрос...';
+
+      const existingPass = await redis('GET', `user_pass:${nick}`);
+      if (existingPass) {
+        msg.className = 'msg err';
+        msg.textContent = '❌ Этот ник уже зарегистрирован';
+        btn.disabled = false;
+        return;
+      }
+
+      await redis('SET', `req:${nick}`, 'pending');
+      await redis('LPUSH', 'queue', nick);
+
+      msg.textContent = '⏳ Проверяю ник в клане Cosmic...';
+
+      let tries = 0;
+      const timer = setInterval(async () => {
         tries++;
-        const status=await redis('GET',`req:${nick.toLowerCase()}`);
-        if(status==='approved'){
+        const status = await redis('GET', `req:${nick}`);
+
+        if (status === 'approved') {
           clearInterval(timer);
-          const savedRole=await redis('GET',`role:${nick.toLowerCase()}`);
-          const role=savedRole||'Участник';
-          await redis('SET',`user:${nick.toLowerCase()}`,JSON.stringify({nick,pass,role,date:new Date().toLocaleDateString('ru-RU')}));
-          msg.className='msg ok';msg.textContent='✅ Регистрация успешна!';btn.disabled=false;
-          setTimeout(()=>showPage('pageLogin'),2000);
-        }else if(status==='rejected'){
-          clearInterval(timer);msg.className='msg err';msg.textContent='❌ Твоего ника нет в клане Cosmic';btn.disabled=false;
-        }else if(tries>=24){
-          clearInterval(timer);msg.className='msg err';msg.textContent='❌ Время вышло';btn.disabled=false;
+
+          const role = await redis('GET', `role:${nick}`) || 'Участник';
+          const date = new Date().toLocaleDateString('ru-RU');
+
+          await redis('SET', `user_pass:${nick}`, pass);
+          await redis('SET', `user_role:${nick}`, role);
+          await redis('SET', `user_date:${nick}`, date);
+
+          msg.className = 'msg ok';
+          msg.textContent = '✅ Регистрация успешна!';
+          btn.disabled = false;
+
+          setTimeout(() => showPage('pageLogin'), 2000);
+
+        } else if (status === 'rejected') {
+          clearInterval(timer);
+          msg.className = 'msg err';
+          msg.textContent = '❌ Твоего ника нет в клане Cosmic';
+          btn.disabled = false;
+
+        } else if (tries >= 24) {
+          clearInterval(timer);
+          msg.className = 'msg err';
+          msg.textContent = '❌ Время вышло';
+          btn.disabled = false;
         }
-      },5000);
+      }, 5000);
     }
 
-    async function doLogin(){
-      const nick=document.getElementById('loginNick').value.trim();
-      const pass=document.getElementById('loginPass').value;
-      const msg=document.getElementById('loginMsg');
-      if(!nick||!pass){msg.className='msg err';msg.textContent='❌ Заполни все поля';return;}
-      msg.className='msg wait';msg.textContent='⏳ Проверяю...';
-      const raw=await redis('GET',`user:${nick.toLowerCase()}`);
-      if(!raw){msg.className='msg err';msg.textContent='❌ Аккаунт не найден';return;}
-      const userData=JSON.parse(raw);
-      if(userData.pass!==pass){msg.className='msg err';msg.textContent='❌ Неверный пароль';return;}
-      const savedRole=await redis('GET',`role:${nick.toLowerCase()}`);
-      if(savedRole){userData.role=savedRole;await redis('SET',`user:${nick.toLowerCase()}`,JSON.stringify(userData));}
-      localStorage.setItem('cosmic_user',JSON.stringify(userData));
+    async function doLogin() {
+      const nick = document.getElementById('loginNick').value.trim().toLowerCase();
+      const pass = document.getElementById('loginPass').value;
+      const msg = document.getElementById('loginMsg');
+
+      if (!nick || !pass) {
+        msg.className = 'msg err';
+        msg.textContent = '❌ Заполни все поля';
+        return;
+      }
+
+      msg.className = 'msg wait';
+      msg.textContent = '⏳ Проверяю...';
+
+      const savedPass = await redis('GET', `user_pass:${nick}`);
+      if (!savedPass) {
+        msg.className = 'msg err';
+        msg.textContent = '❌ Аккаунт не найден';
+        return;
+      }
+
+      if (savedPass !== pass) {
+        msg.className = 'msg err';
+        msg.textContent = '❌ Неверный пароль';
+        return;
+      }
+
+      const role = await redis('GET', `role:${nick}`) || await redis('GET', `user_role:${nick}`) || 'Участник';
+      const date = await redis('GET', `user_date:${nick}`) || '—';
+
+      const userData = { nick, role, date };
+
+      localStorage.setItem('cosmic_user', JSON.stringify(userData));
       openMenu(userData);
     }
 
-    function openMenu(userData){
-      document.getElementById('menuNick').textContent=userData.nick;
-      document.getElementById('menuRole').textContent=userData.role||'Участник';
-      document.getElementById('menuDate').textContent=userData.date||'—';
+    function openMenu(userData) {
+      document.getElementById('menuNick').textContent = userData.nick;
+      document.getElementById('menuRole').textContent = userData.role || 'Участник';
+      document.getElementById('menuDate').textContent = userData.date || '—';
       showPage('pageMenu');
     }
 
-    async function sendOtgul(){
-      const days=parseInt(document.getElementById('otgulDays').value||'0',10);
-      const reason=document.getElementById('otgulReason').value.trim();
-      const msg=document.getElementById('otgulMsg');
-      if(!days||days<1||days>7){msg.className='msg err';msg.textContent='❌ Укажи срок от 1 до 7 дней';return;}
-      if(!reason){msg.className='msg err';msg.textContent='❌ Укажи причину отгула';return;}
-      const user=JSON.parse(localStorage.getItem('cosmic_user'));
-      if(!user){msg.className='msg err';msg.textContent='❌ Сначала войди в аккаунт';return;}
+    async function sendOtgul() {
+      const days = parseInt(document.getElementById('otgulDays').value || '0', 10);
+      const reason = document.getElementById('otgulReason').value.trim();
+      const msg = document.getElementById('otgulMsg');
 
-      const lastRaw=await redis('GET',`otgul:${user.nick.toLowerCase()}`);
-      if(lastRaw){
-        const last=JSON.parse(lastRaw);
-        const cdRaw=await redis('GET','otgul_cooldown');
-        const cdDays=cdRaw?parseInt(cdRaw):30;
-        const diff=(Date.now()-(last.timestamp||0))/(1000*60*60*24);
-        if(diff<cdDays){msg.className='msg err';msg.textContent=`❌ КД отгула ещё ${Math.ceil(cdDays-diff)} дн.`;return;}
+      if (!days || days < 1 || days > 7) {
+        msg.className = 'msg err';
+        msg.textContent = '❌ Укажи срок от 1 до 7 дней';
+        return;
       }
 
-      const otgulData=JSON.stringify({
-        nick:user.nick,
-        role:user.role||'Участник',
-        days,reason,
-        date:new Date().toLocaleDateString('ru-RU'),
-        timestamp:Date.now()
-      });
+      if (!reason) {
+        msg.className = 'msg err';
+        msg.textContent = '❌ Укажи причину отгула';
+        return;
+      }
 
-      await redis('SET',`otgul:${user.nick.toLowerCase()}`,otgulData);
-      await redis('LPUSH','otgul_notify',otgulData);
+      if (reason.length > 200) {
+        msg.className = 'msg err';
+        msg.textContent = '❌ Причина слишком длинная';
+        return;
+      }
 
-      msg.className='msg ok';msg.textContent='✅ Заявка на отгул отправлена!';
-      document.getElementById('otgulDays').value='';
-      document.getElementById('otgulReason').value='';
+      const user = JSON.parse(localStorage.getItem('cosmic_user'));
+      if (!user) {
+        msg.className = 'msg err';
+        msg.textContent = '❌ Сначала войди в аккаунт';
+        return;
+      }
+
+      const lastTsRaw = await redis('GET', `otgul_ts:${user.nick}`);
+      if (lastTsRaw) {
+        const cdRaw = await redis('GET', 'otgul_cooldown');
+        const cdDays = cdRaw ? parseInt(cdRaw) : 30;
+        const diff = (Date.now() - parseInt(lastTsRaw)) / (1000 * 60 * 60 * 24);
+
+        if (diff < cdDays) {
+          msg.className = 'msg err';
+          msg.textContent = `❌ КД отгула ещё ${Math.ceil(cdDays - diff)} дн.`;
+          return;
+        }
+      }
+
+      const today = new Date().toLocaleDateString('ru-RU');
+
+      await redis('SET', `otgul_ts:${user.nick}`, Date.now());
+      await redis('SET', `otgul_days:${user.nick}`, days);
+      await redis('SET', `otgul_reason:${user.nick}`, reason);
+      await redis('SET', `otgul_role:${user.nick}`, user.role || 'Участник');
+      await redis('SET', `otgul_date:${user.nick}`, today);
+      await redis('LPUSH', 'otgul_notify', user.nick);
+
+      msg.className = 'msg ok';
+      msg.textContent = '✅ Заявка на отгул отправлена!';
+
+      document.getElementById('otgulDays').value = '';
+      document.getElementById('otgulReason').value = '';
     }
 
-    function doLogout(){localStorage.removeItem('cosmic_user');showPage('pageWelcome');}
+    function doLogout() {
+      localStorage.removeItem('cosmic_user');
+      showPage('pageWelcome');
+    }
 
-    window.addEventListener('load',()=>{
-      const saved=localStorage.getItem('cosmic_user');
-      if(saved){try{openMenu(JSON.parse(saved));}catch(e){localStorage.removeItem('cosmic_user');}}
+    window.addEventListener('load', () => {
+      const saved = localStorage.getItem('cosmic_user');
+      if (saved) {
+        try {
+          openMenu(JSON.parse(saved));
+        } catch(e) {
+          localStorage.removeItem('cosmic_user');
+        }
+      }
     });
   </script>
 </body>
