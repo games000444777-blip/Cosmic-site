@@ -83,22 +83,18 @@
         <div class="stat-row"><span class="stat-label">🏆 Клан</span><span class="stat-value">Cosmic</span></div>
         <div class="stat-row"><span class="stat-label">📅 Регистрация</span><span class="stat-value" id="menuDate">—</span></div>
       </div>
-
       <div class="menu-btn" onclick="showPage('pageOtgul')">
         <div class="menu-btn-icon">🏖</div>
         <div class="menu-btn-text"><div class="menu-btn-title">Взять отгул</div><div class="menu-btn-desc">Подать заявку на временное отсутствие</div></div>
       </div>
-
       <div class="menu-btn hidden" id="mblMenuBtn" onclick="openMbl()">
         <div class="menu-btn-icon">⚔️</div>
         <div class="menu-btn-text"><div class="menu-btn-title">МБЛ</div><div class="menu-btn-desc">Список ближайших боссов</div></div>
       </div>
-
       <div class="menu-btn" onclick="alert('Скоро!')">
         <div class="menu-btn-icon">✨</div>
         <div class="menu-btn-text"><div class="menu-btn-title">Скоро</div><div class="menu-btn-desc">Новая функция появится позже</div></div>
       </div>
-
       <div class="logout" onclick="doLogout()">Выйти из аккаунта</div>
     </div>
 
@@ -127,14 +123,23 @@
   </div>
 
   <script>
-    const starsEl=document.getElementById('stars');for(let i=0;i<180;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'vw';s.style.top=Math.random()*100+'vh';const size=Math.random()*2+1;s.style.width=size+'px';s.style.height=size+'px';s.style.animationDuration=(Math.random()*3+2)+'s';s.style.animationDelay=(Math.random()*5)+'s';starsEl.appendChild(s)}
+    const starsEl=document.getElementById('stars');
+    for(let i=0;i<180;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'vw';s.style.top=Math.random()*100+'vh';const size=Math.random()*2+1;s.style.width=size+'px';s.style.height=size+'px';s.style.animationDuration=(Math.random()*3+2)+'s';s.style.animationDelay=(Math.random()*5)+'s';starsEl.appendChild(s)}
 
     const API="https://talented-caribou-69877.upstash.io";
     const TOKEN="gQAAAAAAARD1AAIncDE2Yjk4NGJkM2ViZTI0YTkyOTM2MTM4NzY0MzY1ODM5MHAxNjk4Nzc";
 
-    async function redis(cmd,...args){const res=await fetch(`${API}/${cmd}/${args.map(encodeURIComponent).join('/')}`,{headers:{Authorization:`Bearer ${TOKEN}`}});const data=await res.json();return data.result}
+    async function redis(cmd,...args){
+      const res=await fetch(`${API}/${cmd}/${args.map(encodeURIComponent).join('/')}`,{headers:{Authorization:`Bearer ${TOKEN}`}});
+      const data=await res.json();
+      return data.result;
+    }
 
-    function showPage(id){document.querySelectorAll('.card').forEach(c=>{c.classList.add('hidden');c.classList.remove('show')});document.getElementById(id).classList.remove('hidden');document.getElementById(id).classList.add('show')}
+    function showPage(id){
+      document.querySelectorAll('.card').forEach(c=>{c.classList.add('hidden');c.classList.remove('show')});
+      document.getElementById(id).classList.remove('hidden');
+      document.getElementById(id).classList.add('show');
+    }
 
     async function doRegister(){
       const nick=document.getElementById('regNick').value.trim().toLowerCase();
@@ -151,7 +156,8 @@
       msg.textContent='⏳ Проверяю ник в клане Cosmic...';
       let tries=0;
       const timer=setInterval(async()=>{
-        tries++;const status=await redis('GET',`req:${nick}`);
+        tries++;
+        const status=await redis('GET',`req:${nick}`);
         if(status==='approved'){
           clearInterval(timer);
           const role=await redis('GET',`role:${nick}`)||'Участник';
@@ -183,15 +189,28 @@
       const mbl=await redis('GET',`mbl_access:${nick}`);
       const userData={nick,role,date,hasMbl:mbl==='1'};
       localStorage.setItem('cosmic_user',JSON.stringify(userData));
-      openMenu(userData);
+      await openMenu(userData);
     }
 
-    function openMenu(userData){
+    async function openMenu(userData){
+      const nick=userData.nick.toLowerCase();
+      const role=await redis('GET',`role:${nick}`)||await redis('GET',`user_role:${nick}`)||userData.role||'Участник';
+      const date=await redis('GET',`user_date:${nick}`)||userData.date||'—';
+      const mbl=await redis('GET',`mbl_access:${nick}`);
+
+      userData.role=role;
+      userData.date=date;
+      userData.hasMbl=mbl==='1';
+
+      localStorage.setItem('cosmic_user',JSON.stringify(userData));
+
       document.getElementById('menuNick').textContent=userData.nick;
-      document.getElementById('menuRole').textContent=userData.role||'Участник';
-      document.getElementById('menuDate').textContent=userData.date||'—';
+      document.getElementById('menuRole').textContent=role;
+      document.getElementById('menuDate').textContent=date;
+
       const mblBtn=document.getElementById('mblMenuBtn');
       if(userData.hasMbl){mblBtn.classList.remove('hidden')}else{mblBtn.classList.add('hidden')}
+
       showPage('pageMenu');
     }
 
@@ -204,36 +223,22 @@
       const timer=setInterval(async()=>{
         tries++;
         const list=await redis('GET','mbl_list');
-        if(list){
-          clearInterval(timer);
-          document.getElementById('bossList').textContent=list;
-        }else if(tries>=12){
-          clearInterval(timer);
-          document.getElementById('bossList').textContent='❌ Не удалось загрузить';
-        }
+        if(list){clearInterval(timer);document.getElementById('bossList').textContent=list}
+        else if(tries>=12){clearInterval(timer);document.getElementById('bossList').textContent='❌ Не удалось загрузить'}
       },3000);
     }
 
     async function refreshMbl(){
       const msg=document.getElementById('mblMsg');
       const btn=document.getElementById('mblRefreshBtn');
-      btn.disabled=true;
-      msg.className='msg wait';msg.textContent='⏳ Обновляю...';
+      btn.disabled=true;msg.className='msg wait';msg.textContent='⏳ Обновляю...';
       await redis('LPUSH','mbl_cmd','refresh');
       let tries=0;
       const timer=setInterval(async()=>{
         tries++;
         const list=await redis('GET','mbl_list');
-        if(list&&tries>1){
-          clearInterval(timer);
-          document.getElementById('bossList').textContent=list;
-          msg.className='msg ok';msg.textContent='✅ Обновлено!';
-          btn.disabled=false;
-        }else if(tries>=12){
-          clearInterval(timer);
-          msg.className='msg err';msg.textContent='❌ Не удалось обновить';
-          btn.disabled=false;
-        }
+        if(list&&tries>1){clearInterval(timer);document.getElementById('bossList').textContent=list;msg.className='msg ok';msg.textContent='✅ Обновлено!';btn.disabled=false}
+        else if(tries>=12){clearInterval(timer);msg.className='msg err';msg.textContent='❌ Не удалось обновить';btn.disabled=false}
       },3000);
     }
 
@@ -267,9 +272,9 @@
 
     function doLogout(){localStorage.removeItem('cosmic_user');showPage('pageWelcome')}
 
-    window.addEventListener('load',()=>{
+    window.addEventListener('load',async()=>{
       const saved=localStorage.getItem('cosmic_user');
-      if(saved){try{openMenu(JSON.parse(saved))}catch(e){localStorage.removeItem('cosmic_user')}}
+      if(saved){try{await openMenu(JSON.parse(saved))}catch(e){localStorage.removeItem('cosmic_user')}}
     });
   </script>
 </body>
